@@ -1,0 +1,25 @@
+# Lingkungan
+.venv/
+__pycache__/
+*.pyc
+
+# Data dan model
+data/
+*.parquet
+*.csv
+models/
+mlruns/
+
+# Secret
+.env
+*.key
+
+# Editor dan OS
+.vscode/
+.idea/
+.DS_Store
+
+# Cache tool
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
