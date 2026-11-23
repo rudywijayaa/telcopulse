@@ -3,7 +3,13 @@ name = "telcopulse"
 version = "0.1.0"
 description = "Customer sentiment intelligence and business impact engine"
 requires-python = ">=3.10,<3.13"
-dependencies = []
+dependencies = [
+    "ruff",
+    "pytest",
+    "pytest-cov",
+    "pre-commit",
+    "mypy",
+]
 
 [tool.setuptools.packages.find]
 include = ["src*", "api*"]
@@ -11,3 +17,13 @@ include = ["src*", "api*"]
 [build-system]
 requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
+
+[too.ruff]
+line-length = 100
+target-version ="p311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.pytest]
+testpaths = ["tests"]
