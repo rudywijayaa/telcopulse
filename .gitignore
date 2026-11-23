@@ -4,9 +4,10 @@ __pycache__/
 *.pyc
 
 # Data dan model
-data/
+data/*
+!data/reference/
 *.parquet
-*.csv
+
 models/
 mlruns/
 
