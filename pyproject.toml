@@ -9,6 +9,7 @@ dependencies = [
     "pytest-cov",
     "pre-commit",
     "mypy",
+    "google-play-scraper",
 ]
 
 [tool.setuptools.packages.find]
