@@ -2,13 +2,20 @@
 
 from src.app_checker import AppChecker, AppInfo
 
+# Nama kunci = nilai app_source yang nanti dipakai scraper.
 KNOWN_IDS = {
-    "telkomsel": "com.telkomsel.telkomselcm",
-    "indosat_myim3": "com.pure.indosat.care",
-    "indosat_bima": "com.linkit.bimatri",
-    "xl": "com.apps.MyXL",
+    # Kelompok A: inti analisis
+    "mytelkomsel": "com.telkomsel.telkomselcm",
+    "byu": "com.byu.id",
+    "myim3": "com.pure.indosat.care",
+    "bimaplus": "com.linkit.bimatri",
+    # Kelompok B: replikasi pra-merger
+    "myxl": "com.apps.MyXL",
+    "axisnet": "com.axis.net",
+    # Kelompok C: ditunda, ID belum diverifikasi
+    "mysmartfren": "com.smartfren",
 }
-SEARCH_QUERIES = ["myIM3", "Bima+ Tri"]
+SEARCH_QUERIES = ["by.U", "mySmartfren"]
 
 
 def print_app(label: str, app_id: str, info: AppInfo | None) -> None:
