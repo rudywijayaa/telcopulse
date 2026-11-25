@@ -24,11 +24,11 @@ Catatan: nama developer tidak konsisten (titik di akhir "Indosat Ooredoo Hutchis
 
 ## Data keuangan kuartalan
 
-| File                                | Operator     | Kuartal             | Catatan                                           |
-| ----------------------------------- | ------------ | ------------------- | ------------------------------------------------- |
-| telkomsel_quarterly_final_v2.csv    | Telkomsel    | 2022-Q3 s/d 2026-Q3 | 17 kuartal, tanpa gap. Sudah memuat dua koreksi   |
-| indosat_quarterly_final_1.csv       | Indosat      | 2022-Q3 s/d 2026-Q3 | 17 kuartal, tanpa gap                             |
-| xlsmart_quarterly_2022q1_2026q3.csv | XL / XLSMART | 2022-Q3 s/d 2026-Q3 | Sebelum 2025-Q2 = XL (+AXIS), sesudahnya gabungan |
+| File                     | Operator     | Kuartal             | Catatan                                           |
+| ------------------------ | ------------ | ------------------- | ------------------------------------------------- |
+| telkomsel_quarterly.csv  | Telkomsel    | 2022-Q3 s/d 2026-Q3 | 17 kuartal, tanpa gap. Sudah memuat dua koreksi   |
+| indosat_quarterly.csv    | Indosat      | 2022-Q3 s/d 2026-Q3 | 17 kuartal, tanpa gap                             |
+| xl_xlsmart_quarterly.csv | XL / XLSMART | 2022-Q3 s/d 2026-Q3 | Sebelum 2025-Q2 = XL (+AXIS), sesudahnya gabungan |
 
 File dari Excel memakai pemisah titik koma. Standarkan ke koma dan UTF-8 sebelum masuk `data/reference/`.
 
