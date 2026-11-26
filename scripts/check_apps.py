@@ -25,10 +25,7 @@ def print_app(label: str, app_id: str, info: AppInfo | None) -> None:
 
     print(f"[{label}] {info.title} | {info.app_id}")
     print(f"  developer={info.developer}")
-    print(
-        f"  rating={info.rating} ratings={info.ratings_count} "
-        f"reviews={info.reviews_count}"
-    )
+    print(f"  rating={info.rating} ratings={info.ratings_count} reviews={info.reviews_count}")
     print(f"  version={info.version} updated={info.updated}")
 
 
