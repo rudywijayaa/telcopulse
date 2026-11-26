@@ -6,7 +6,9 @@ requires-python = ">=3.11,<3.13"
 dependencies = [
     "google-play-scraper",
     "pydantic>=2",
+    "pyarrow",
     "pyyaml",
+    "tzdata",
 ]
 
 [project.optional-dependencies]
