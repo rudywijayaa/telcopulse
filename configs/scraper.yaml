@@ -1,0 +1,44 @@
+language: id
+country: id
+
+# Awal jendela data keuangan (2022-Q3), inklusif.
+start_date: 2022-07-01
+
+batch_size: 200
+sleep_seconds: 1.0
+sleep_jitter: 0.5 # jeda acak tambahan antara 0 dan nilai ini
+max_retries: 5
+backoff_base_seconds: 5.0 # tunggu 5, 10, 20, ... detik antar percobaan
+checkpoint_every: 5000
+output_dir: data/raw # diabaikan Git
+
+# Kelompok A = inti analisis, B = replikasi pra-merger, C = ditunda
+apps:
+  mytelkomsel:
+    app_id: com.telkomsel.telkomselcm
+    operator: telkomsel
+    group: A
+  byu:
+    app_id: com.byu.id
+    operator: telkomsel
+    group: A
+  myim3:
+    app_id: com.pure.indosat.care
+    operator: indosat
+    group: A
+  bimaplus:
+    app_id: com.linkit.bimatri
+    operator: indosat
+    group: A
+  myxl:
+    app_id: com.apps.MyXL
+    operator: xl
+    group: B
+  axisnet:
+    app_id: com.axis.net
+    operator: xl
+    group: B
+  mysmartfren:
+    app_id: com.smartfren
+    operator: smartfren
+    group: C
