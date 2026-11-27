@@ -59,3 +59,15 @@ File dari Excel memakai pemisah titik koma. Standarkan ke koma dan UTF-8 sebelum
 - [ ] Anomali Telkomsel 2023-Q4 (legacy turun 52% QoQ lalu naik 58%): cek memo FY23.
 - [ ] Jumlah ulasan per kuartal sejak 2022-07-01 dan persentase `appVersion` terisi (setelah scraper jadi).
 - [ ] Kumpulkan `events.csv`, Google Trends mingguan, dan indikator makro.
+
+## Hari 2 (uji coba scraping, 2026-11-27)
+
+Dicatat di file hari 1 karena uji coba dijalankan setelah keputusan hari 1 selesai. Pekerjaan hari 2 yang tersisa (scraping penuh, data check, laporan kualitas) dicatat di bagian ini juga saat selesai.
+
+- Bima+: 2000 ulasan, alasan=limit, ulasan tertua 2026-11-06.
+- MyTelkomsel: 2000 ulasan, alasan=limit, ulasan tertua 2026-11-17.
+- Duplikat ID: 0. Konten kosong: 0%.
+- `app_version` kosong (MyTelkomsel): 20,3%. Analisis H6 dibatasi ke ulasan yang punya versi.
+- Balasan developer (MyTelkomsel): 1999 dari 2000. Isinya templat layanan pelanggan (mengarahkan ke email dan Call Center 188), jadi tidak dipakai sebagai sinyal sentimen.
+- Distribusi rating (MyTelkomsel): 1: 1254, 2: 136, 3: 113, 4: 79, 5: 418.
+- Uji coba hanya mengambil ulasan terbaru (sekitar 9 hari). Sebaran kuartal diperiksa saat scraping penuh.
