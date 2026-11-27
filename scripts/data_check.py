@@ -27,7 +27,7 @@ def main(app: str) -> None:
     print(f"Tanggal terlama : {df['reviewed_at'].min()}")
     print(f"Tanggal terbaru : {df['reviewed_at'].max()}")
     print(f"app_version kosong : {df['app_version'].isna().mean():.1%}")
-    print(f"Balasan developer  : {df['reply_content'].notna().mean():.1%}")
+    print(f"Balasan developer  : {df['reply_content'].notna().sum()} dari {total}")
     print(f"Konten kosong      : {(df['content'].str.len() == 0).mean():.1%}")
     print("Distribusi rating  :")
     print(df["rating"].value_counts().sort_index().to_string())
