@@ -1,12 +1,18 @@
-# Temuan Hari 1
+# Temuan Hari 1 (dan catatan hari 2 yang menyusul)
 
-Tanggal cek: 2026-11-25. Sumber aplikasi: `python scripts/check_apps.py` (Play Store, toko Indonesia). Sumber keuangan: dokumen perusahaan yang tercatat per baris di CSV.
+Tanggal cek ID: 2026-11-25. Sumber aplikasi: `python scripts/check_apps.py` (Play Store, toko Indonesia). Sumber keuangan: dokumen perusahaan yang tercatat per baris di CSV.
 
-## Pertanyaan riset (terkunci)
+Dokumen ini dibagi dua bagian: **Hari 1** (keputusan desain dan verifikasi) dan **Hari 2** (hasil scraping dan pemeriksaan kualitas). Hari 2 dicatat di sini karena scraping dijalankan setelah keputusan hari 1 selesai.
+
+---
+
+## Hari 1: keputusan dan verifikasi
+
+### Pertanyaan riset (terkunci)
 
 Penjelasan mana yang paling konsisten dengan waktu, segmen, dan pola lintas operator dari penyusutan basis pelanggan Telkomsel dari puncak 2024-Q2 (159,9 juta) sampai 2026-Q3 (151,1 juta)? Pelanggan berarti kartu SIM tercatat, bukan orang unik.
 
-## ID aplikasi (semua terverifikasi dengan get_app, 2026-11-25)
+### ID aplikasi (terverifikasi `get_app`, 2026-11-25)
 
 | Kelompok | Operator  | Aplikasi                                    | ID                        | Developer                  | Perkiraan ulasan | Catatan                                    |
 | -------- | --------- | ------------------------------------------- | ------------------------- | -------------------------- | ---------------- | ------------------------------------------ |
@@ -18,11 +24,9 @@ Penjelasan mana yang paling konsisten dengan waktu, segmen, dan pola lintas oper
 | B        | XL        | AXISnet                                     | com.axis.net              | AXIS.                      | 1.351.793        | Replikasi pra-merger saja                  |
 | C        | XLSMART   | mySmartfren (judul kini "mySF. #AppJagoan") | com.smartfren             | Smartfren.                 | 667.065          | Ditunda, hanya pasca-merger dan deskriptif |
 
-Jumlah ulasan sepanjang masa: Kelompok A 6.727.206, Kelompok B 2.427.779, Kelompok C 667.065 (total 9.822.050). Angka berubah antar pengecekan dan hanya batas atas kasar. Jumlah sejak 2022-07-01 harus dihitung saat scraping.
+Angka ulasan adalah batas atas kasar dari Play Store dan berubah antar pengecekan. Jumlah yang benar-benar tersedia ditentukan saat scraping. Pencocokan data selalu lewat `app_id`, bukan nama developer (nama developer tidak konsisten, misalnya titik di akhir).
 
-Catatan: nama developer tidak konsisten (titik di akhir "Indosat Ooredoo Hutchison.", "AXIS.", "Smartfren."). Pencocokan data selalu lewat `app_id`, bukan nama developer.
-
-## Data keuangan kuartalan
+### Data keuangan kuartalan
 
 | File                     | Operator     | Kuartal             | Catatan                                           |
 | ------------------------ | ------------ | ------------------- | ------------------------------------------------- |
@@ -30,26 +34,26 @@ Catatan: nama developer tidak konsisten (titik di akhir "Indosat Ooredoo Hutchis
 | indosat_quarterly.csv    | Indosat      | 2022-Q3 s/d 2026-Q3 | 17 kuartal, tanpa gap                             |
 | xl_xlsmart_quarterly.csv | XL / XLSMART | 2022-Q3 s/d 2026-Q3 | Sebelum 2025-Q2 = XL (+AXIS), sesudahnya gabungan |
 
-File dari Excel memakai pemisah titik koma. Standarkan ke koma dan UTF-8 sebelum masuk `data/reference/`.
+File dari Excel memakai pemisah titik koma. Sudah distandarkan ke koma dan UTF-8 di `data/reference/`.
 
-## Keputusan
+### Keputusan
 
 1. **Fokus:** Telkomsel kasus utama, Indosat pembanding utama. XL hanya replikasi pra-merger (2022-Q3 s/d 2025-Q1, 11 kuartal). XL pasca-merger (7 kuartal) deskriptif saja, karena data keuangan XL, AXIS, dan Smartfren tidak dipisahkan per merek.
-2. **Aplikasi:** Kelompok A discrape lebih dulu: MyTelkomsel + by.U dan myIM3 + Bima+, dibedakan dengan kolom `app_source`. Analisis utama memakai gabungan per operator, uji ketahanan membuang aplikasi kedua (by.U atau Bima+).
-3. **by.U:** manajemen menyebut sekitar 20 juta pelanggan (Sep 2026), atau sekitar 13% basis Telkomsel. Angka lama 3 sampai 4 juta (2022) tidak dipakai. Itu klaim manajemen, dan belum terkonfirmasi apakah termasuk dalam 151,1 juta. Pernyataan ">97% pelanggan memakai MyTelkomsel" tidak boleh dipakai. Ulasan by.U sepanjang masa sekitar 9,4% dari gabungan ulasan Telkomsel (306 ribu dari 3,26 juta).
+2. **Aplikasi:** Kelompok A diambil lebih dulu. Analisis utama memakai gabungan per operator, uji ketahanan membuang aplikasi kedua (by.U atau Bima+).
+3. **by.U:** manajemen menyebut sekitar 20 juta pelanggan (Sep 2026), sekitar 13% basis Telkomsel. Itu klaim manajemen, dan belum terkonfirmasi apakah termasuk dalam 151,1 juta. Pernyataan "lebih dari 97% pelanggan memakai MyTelkomsel" tidak dipakai.
 4. **Kelompok C:** mySmartfren ditunda, hanya untuk jendela pasca-merger dan deskriptif.
-5. **ID aplikasi** hanya diambil dari `get_app`. Hasil pencarian Play Store selalu mengembalikan ID kosong (`None`) pada hasil teratas.
+5. **ID aplikasi** hanya diambil dari `get_app`. Hasil pencarian Play Store kadang mengembalikan ID kosong (`None`).
 6. **Ukuran pendapatan seluler Telkomsel:** `mobile_service_rev`, bukan total revenue, karena total melompat di 2023-Q3 akibat integrasi IndiHome.
 
-## Koreksi dan temuan data
+### Koreksi data keuangan
 
-- Telkomsel `mobile_service_rev` 2025-Q1: 20.576 menjadi 20.546 (legacy 1.992 + digital 18.554). Yield menjadi 3,64.
-- Telkomsel `mobile_service_rev` 2026-Q1: 21.147 menjadi 21.217 (legacy 1.026 + digital 20.191). Yield menjadi 3,68.
-- Setelah koreksi, jumlah 9M25 = 61.603 dan 9M26 = 63.758, sama dengan dokumen.
+- Telkomsel `mobile_service_rev` 2025-Q1: 20.576 menjadi 20.546. Yield menjadi 3,64.
+- Telkomsel `mobile_service_rev` 2026-Q1: 21.147 menjadi 21.217. Yield menjadi 3,68.
+- Setelah koreksi, 9M25 = 61.603 dan 9M26 = 63.758, sama dengan dokumen sumber.
 - Selisih prabayar + pascabayar dengan total (±1 ribu Telkomsel, ±100 ribu Indosat) adalah pembulatan.
-- Sekitar 88% penurunan Telkomsel dari puncaknya terjadi setelah 2025-Q1. Rentang ini ditemukan setelah melihat data, jadi berstatus eksploratif.
+- Sekitar 88% penurunan Telkomsel dari puncaknya terjadi setelah 2025-Q1. Rentang ini ditemukan setelah melihat data, jadi berstatus **eksploratif**, bukan hipotesis awal.
 
-## Yang masih harus diverifikasi
+### Checklist verifikasi
 
 - [x] ID by.U, AXISnet, dan mySmartfren lewat `get_app` (2026-11-25).
 - [ ] Apakah 151,1 juta pelanggan Telkomsel sudah memuat by.U.
@@ -57,17 +61,54 @@ File dari Excel memakai pemisah titik koma. Standarkan ke koma dan UTF-8 sebelum
 - [ ] ARPU Indosat 2026-Q1: 45.200 (tabel) vs 45.000 (narasi). Konfirmasi di memo 1Q26.
 - [ ] Satuan payload: Telkomsel dari TB dibagi 1.024. Cek satuan Indosat, lalu seragamkan.
 - [ ] Anomali Telkomsel 2023-Q4 (legacy turun 52% QoQ lalu naik 58%): cek memo FY23.
-- [ ] Jumlah ulasan per kuartal sejak 2022-07-01 dan persentase `appVersion` terisi (setelah scraper jadi).
+- [ ] Persentase `app_version` kosong per kuartal (lihat Hari 2).
 - [ ] Kumpulkan `events.csv`, Google Trends mingguan, dan indikator makro.
 
-## Hari 2 (uji coba scraping, 2026-11-27)
+---
 
-Dicatat di file hari 1 karena uji coba dijalankan setelah keputusan hari 1 selesai. Pekerjaan hari 2 yang tersisa (scraping penuh, data check, laporan kualitas) dicatat di bagian ini juga saat selesai.
+## Hari 2: scraping dan kualitas data (2026-11-27)
 
-- Bima+: 2000 ulasan, alasan=limit, ulasan tertua 2026-11-06.
-- MyTelkomsel: 2000 ulasan, alasan=limit, ulasan tertua 2026-11-17.
+### Uji coba (2.000 ulasan per aplikasi)
+
+Dijalankan untuk menguji pipeline. **Hasilnya tidak dipakai sebagai angka resmi**, karena hanya mengambil ulasan terbaru (sekitar 9 hari).
+
+- Bima+: 2.000 ulasan, `alasan=limit`, ulasan tertua 2026-11-06.
+- MyTelkomsel: 2.000 ulasan, `alasan=limit`, ulasan tertua 2026-11-17.
 - Duplikat ID: 0. Konten kosong: 0%.
-- `app_version` kosong (MyTelkomsel): 20,3%. Analisis H6 dibatasi ke ulasan yang punya versi.
-- Balasan developer (MyTelkomsel): 1999 dari 2000. Isinya templat layanan pelanggan (mengarahkan ke email dan Call Center 188), jadi tidak dipakai sebagai sinyal sentimen.
-- Distribusi rating (MyTelkomsel): 1: 1254, 2: 136, 3: 113, 4: 79, 5: 418.
-- Uji coba hanya mengambil ulasan terbaru (sekitar 9 hari). Sebaran kuartal diperiksa saat scraping penuh.
+
+### Scraping penuh MyTelkomsel
+
+Dijalankan dengan `python scripts/scrape.py --apps mytelkomsel`.
+
+- Total ulasan tersimpan: **737.099**, dalam 149 part Parquet (part 1 uji coba 2.000, part 2 sampai 148 berisi 5.000, part 149 berisi 99).
+- Berhenti dengan `selesai=True, alasan=start_date`. Ulasan tertua 2022-06-30 00:00 UTC.
+- Duplikat ID: **0**. Konten kosong: **0%**.
+- Ulasan sebelum 1 Juli 2022 WIB (sebelum 2022-06-30 17:00 UTC): **1.304**. Ini dibuang di tahap pembersihan, data mentah tidak diubah.
+- Kuartal dihitung di Asia/Jakarta (WIB). 2026Q4 hanya berisi ulasan sampai 26 November, jadi belum lengkap dan tidak dipakai untuk perbandingan.
+
+Sebaran per kuartal (WIB), data mentah sebelum pembersihan:
+
+| Kuartal | Ulasan | Kuartal | Ulasan                 |
+| ------- | ------ | ------- | ---------------------- |
+| 2022Q2  | 1.304  | 2024Q3  | 34.062                 |
+| 2022Q3  | 86.935 | 2024Q4  | 54.549                 |
+| 2022Q4  | 63.059 | 2025Q1  | 50.182                 |
+| 2023Q1  | 30.956 | 2025Q2  | 43.789                 |
+| 2023Q2  | 27.467 | 2025Q3  | 44.685                 |
+| 2023Q3  | 43.406 | 2025Q4  | 41.377                 |
+| 2023Q4  | 40.081 | 2026Q1  | 37.388                 |
+| 2024Q1  | 28.808 | 2026Q2  | 31.740                 |
+| 2024Q2  | 37.673 | 2026Q3  | 26.436                 |
+|         |        | 2026Q4  | 13.202 (belum lengkap) |
+
+Distribusi rating (seluruh data): 1: 341.513, 2: 48.759, 3: 41.832, 4: 43.728, 5: 261.267.
+
+### Kelengkapan kolom
+
+- `app_version` kosong: **19,1%** (seluruh data). Angka uji coba 20,3% tidak mewakili.
+- Balasan developer: **522.910 dari 737.099 (71%)**. Angka uji coba 1.999 dari 2.000 tidak mewakili. Balasan berupa templat layanan pelanggan (mengarahkan ke email dan Call Center 188), jadi tidak dipakai sebagai sinyal sentimen.
+
+### Yang belum diperiksa
+
+- Persentase `app_version` kosong dan balasan per kuartal, untuk menentukan apakah H6 harus dibatasi ke periode tertentu: **(isi setelah pemeriksaan per kuartal)**.
+- Data by.U dan Bima+ masih belum diambil penuh.
