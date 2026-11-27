@@ -80,3 +80,8 @@ def test_schema_drift_fails_loudly():
     del raw["reviewId"]
     with pytest.raises(KeyError):
         convert(raw)
+
+
+def test_empty_reply_becomes_none():
+    review = convert(raw_review(replyContent=""))
+    assert review.reply_content is None

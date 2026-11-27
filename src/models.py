@@ -44,7 +44,7 @@ def review_from_raw(
         thumbs_up=raw["thumbsUpCount"],
         app_version=raw.get("reviewCreatedVersion") or raw.get("appVersion"),
         reviewed_at=_to_utc(raw["at"]),
-        reply_content=raw.get("replyContent"),
+        reply_content=raw.get("replyContent") or None,
         replied_at=_to_utc(replied_at) if replied_at else None,
         sort_mode=sort_mode,
         scraped_at=scraped_at,
