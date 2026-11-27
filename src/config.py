@@ -22,7 +22,7 @@ class ScraperConfig(BaseModel):
     language: str = "id"
     country: str = "id"
     start_date: date
-    batch_size: int = Field(gt=0)
+    batch_size: int = Field(gt=0, le=4500)
     sleep_seconds: float = Field(ge=0)
     sleep_jitter: float = Field(ge=0)
     max_retries: int = Field(ge=0)

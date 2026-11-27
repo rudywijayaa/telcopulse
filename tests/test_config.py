@@ -48,6 +48,7 @@ def test_valid_config_converts_types():
     "overrides",
     [
         {"batch_size": 0},
+        {"batch_size": 4501},
         {"sleep_seconds": -1},
         {"backoff_base_seconds": 0},
         {"checkpoint_every": 0},
@@ -56,6 +57,7 @@ def test_valid_config_converts_types():
     ],
     ids=[
         "batch_nol",
+        "batch_terlalu_besar",
         "jeda_negatif",
         "backoff_nol",
         "checkpoint_nol",
