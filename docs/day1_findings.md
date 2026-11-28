@@ -66,7 +66,7 @@ File dari Excel memakai pemisah titik koma. Sudah distandarkan ke koma dan UTF-8
 
 ---
 
-## Hari 2: scraping dan kualitas data (2026-11-27)
+## Hari 2: scraping dan kualitas data (2026-11-27 sampai 2026-11-28)
 
 ### Uji coba (2.000 ulasan per aplikasi)
 
@@ -76,7 +76,7 @@ Dijalankan untuk menguji pipeline. **Hasilnya tidak dipakai sebagai angka resmi*
 - MyTelkomsel: 2.000 ulasan, `alasan=limit`, ulasan tertua 2026-11-17.
 - Duplikat ID: 0. Konten kosong: 0%.
 
-### Scraping penuh MyTelkomsel
+### Scraping penuh MyTelkomsel (2026-11-27)
 
 Dijalankan dengan `python scripts/scrape.py --apps mytelkomsel`.
 
@@ -103,12 +103,38 @@ Sebaran per kuartal (WIB), data mentah sebelum pembersihan:
 
 Distribusi rating (seluruh data): 1: 341.513, 2: 48.759, 3: 41.832, 4: 43.728, 5: 261.267.
 
-### Kelengkapan kolom
+### Kelengkapan kolom MyTelkomsel
 
 - `app_version` kosong: **19,1%** (seluruh data). Angka uji coba 20,3% tidak mewakili.
 - Balasan developer: **522.910 dari 737.099 (71%)**. Angka uji coba 1.999 dari 2.000 tidak mewakili. Balasan berupa templat layanan pelanggan (mengarahkan ke email dan Call Center 188), jadi tidak dipakai sebagai sinyal sentimen.
 
+### Scraping penuh by.U (2026-11-28)
+
+- Total ulasan: **152.866**, 2022-06-30 sampai 2026-11-27, `selesai=True, alasan=start_date`.
+- Duplikat ID: 0. Konten kosong: 0%.
+- `app_version` kosong: 18,6%.
+- Balasan developer: 147.281 (96,3%), templat layanan, tidak dipakai sebagai sinyal sentimen.
+- Distribusi rating: 1: 62.649, 2: 11.502, 3: 11.145, 4: 10.440, 5: 57.130.
+- Estimasi awal dari `check_apps` (306 ribu) adalah total sepanjang masa. Yang diambil sejak 2022-07-01 lebih kecil.
+- Sebaran kuartal (WIB) by.U:
+
+| Kuartal | Ulasan | Kuartal | Ulasan                |
+| ------- | ------ | ------- | --------------------- |
+| 2022Q2  | 82     | 2024Q4  | 9.916                 |
+| 2022Q3  | 6.655  | 2025Q1  | 9.013                 |
+| 2022Q4  | 8.055  | 2025Q2  | 11.610                |
+| 2023Q1  | 4.295  | 2025Q3  | 11.356                |
+| 2023Q2  | 3.759  | 2025Q4  | 14.779                |
+| 2023Q3  | 3.619  | 2026Q1  | 16.606                |
+| 2023Q4  | 7.874  | 2026Q2  | 8.176                 |
+| 2024Q1  | 7.253  | 2026Q3  | 10.357                |
+| 2024Q2  | 6.359  |         |                       |
+| 2024Q3  | 8.193  | 2026Q4  | 4.909 (belum lengkap) |
+
+- Penurunan 2026Q2 (8.176) dibanding 2026Q1 (16.606) belum diinterpretasikan. Bandingkan dengan MyTelkomsel pada kuartal yang sama sebelum menyimpulkan apa pun.
+
 ### Yang belum diperiksa
 
 - Persentase `app_version` kosong dan balasan per kuartal, untuk menentukan apakah H6 harus dibatasi ke periode tertentu: **(isi setelah pemeriksaan per kuartal)**.
-- Data by.U dan Bima+ masih belum diambil penuh.
+- Scraping myIM3 dan Bima+ penuh: **belum dilakukan**.
+- Perbandingan sebaran kuartal by.U dengan MyTelkomsel: **belum dilakukan**.
